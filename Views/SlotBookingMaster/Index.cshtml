@@ -1,0 +1,158 @@
+﻿@model IEnumerable<DOTNETCOREEXAMPLE.Models.Class_SLOT_BOOKING_MASTER>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+    @{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div class="section-heading-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="heading-page text-center-xs">@ViewBag.Title.</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb text-right text-center-xs">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="active">@ViewBag.Title</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayName("PHONE NUMBER")
+                </th>
+                @*<th>
+                        @Html.DisplayName("PATIENT NAME")
+                    </th>*@
+                @*<th>
+                        @Html.DisplayNameFor(model => model.AGE)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.WEIGHT)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GENDER)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ALTERNATEMOBILENUMBER)
+                    </th>
+                    <td>
+                        @Html.DisplayNameFor(model => model.EMAIL)
+                    </td>*@
+                <th>
+                    @Html.DisplayName("SLOT")
+                    @*@Html.Action("GetSlotName","SlotBookingMaster",new { SLOTID=})*@
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.SLOTTYPEID)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.VISITTYPEID)
+                    </th>*@
+                <th>
+                    @Html.DisplayName("SLOT BOOKING DATE")
+                </th>
+                <th>
+                    @Html.DisplayName("SERVICE")
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.SERVICEPROVIDERID)
+                    </th>*@
+                <th>
+                    @Html.DisplayName("PAYMENT TYPE")
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PHONENUMBER)
+                </td>
+                @*<td>
+                        Html.Action("GetPatientName", "PATIENTMASTER", new { PATIENTID = item.PATIENTID })
+                        @Html.DisplayFor(modelItem => item.PATIENTNAME)
+                    </td>*@
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.AGE)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WEIGHT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GENDER)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ALTERNATEMOBILENUMBER)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EMAIL)
+                    </td>*@
+                <td>
+                    @*<label asp-controller="SLOTMASTER" asp-action="GetStotName" asp-route-id="@item.SLOTID"/>*@
+                    @*@{
+                        string strSLOTID=@Html.Action("GetSlotName", "SLOTMASTER", new { SLOTIID = item.SLOTID });
+                        }
+                        @strSLOTID*@
+                    @Html.DisplayFor(modelItem => item.SLOTID)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.SLOTTYPEID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VISITTYPEID)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.SLOTBOOKINGDATETIME)
+                </td>
+                <td>
+                    @*Html.Action("GetServiceName", "SERVICEMASTER", new { SERVICETYPEID = item.SERVICETYPEID })*@
+                    @Html.DisplayFor(modelItem => item.SERVICETYPEID)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.SERVICEPROVIDERID)
+
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.PAYMENTMETHOD)
+                </td>
+                <td>
+
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("RegistrationTypeId") == "2") {
+                if(item.PAYMENTSTATUS=="Payment Successful"){
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SLOTBOOKINGID })  <span> | </span>
+                    @Html.ActionLink("Details", "Details", new { id = item.SLOTBOOKINGID })
+                }
+                else{
+
+                    @Html.ActionLink("Details", "Details", new { id = item.SLOTBOOKINGID })
+                }
+                }
+                else{
+                    @Html.ActionLink("Edit", "Edit", new { id = item.SLOTBOOKINGID })  <span> | </span>
+                    @Html.ActionLink("Details", "Details", new { id = item.SLOTBOOKINGID })
+                }
+
+                    @*@Html.ActionLink("Delete", "Delete", new { id = item.SLOTBOOKINGID })*@
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+

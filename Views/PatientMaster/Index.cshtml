@@ -1,0 +1,262 @@
+﻿@model IEnumerable<DOTNETCOREEXAMPLE.Models.Class_PATIENT_MASTER>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2></h2>
+
+<p>
+    @*<a asp-action="Create">Create New</a>*@
+</p>
+
+<!DOCTYPE html>
+
+
+
+    <div class="section-heading-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h1 class="heading-page text-center-xs">Patient Details for the Phone number</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb text-right text-center-xs">
+                        <li>
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="active">@ViewBag.Title</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+
+    <p style="text-align:right">
+        <button class="btn-menu-top" id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user"></i>
+            @Html.ActionLink("Add New Patient", "Create", "PatientMaster")
+            <i class="fa fa-arrow-down"></i>
+        </button>
+    </p>
+
+    <table width="100%" class="table" border="0">
+        <tr>
+            <td colspan="3">
+
+
+                @*<a style="width:100px" class='btn btn-default' href="@Url.Action("Create", "PatientMaster")">Add Patient  </a>*@
+            </td>
+        </tr>
+        <tr>
+            <td width="35%"></td>
+            <td>
+                <table border="1" width="100%" style="text-align:right">
+
+
+
+                    @foreach (var item in Model)
+                    {
+
+
+<tr>
+    <td style="height:200px;width:200px;border:1px;text-align:center">
+        @if (item.GENDER == "MALE")
+        {
+            <img src="~/assets/images/picLayer-1.png" />
+        }
+        else
+        {
+            <img src="~/assets/images/picLayer-2.png" />
+        }
+
+    </td>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            PATIENT NAME :
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.PATIENTNAME)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            AGE:
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.AGE)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            WEIGHT:
+                                        </td>
+                                        <td>@Html.DisplayFor(modelItem => item.WEIGHT)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            GENDER:
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GENDER)
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <a style="width:100px" class='btn btn-default' href="@Url.Action("Create", "SlotBookingMaster", new { id = item.PATIENTID, UserId = item.USERID })">SELECT  </a>
+                                <a style="width:100px" class='btn btn-default' href="@Url.Action("EDIT", "PatientMaster", new { id = item.PATIENTID })">EDIT  </a>
+                                <a style="width:100px" class='btn btn-default' href="@Url.Action("DETAILS", "PatientMaster", new { id = item.PATIENTID})">DETAILS  </a>
+
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <hr />
+                            </td>
+                        </tr>
+                    }
+
+                </table>
+            </td>
+            <td width="35%"></td>
+        </tr>
+
+    </table>
+
+    <table class="table" style="display:none">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PATIENTNAME)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AGE)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WEIGHT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GENDER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ADDRESS)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ALTERNATEMOBILENUMBER)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EMAIL)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PATIENTNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AGE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WEIGHT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GENDER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADDRESS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ALTERNATEMOBILENUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL)
+                </td>
+                <td>
+                    <a style="width:150px" class='btn btn-default' href="@Url.Action("Create", "SlotBookingMaster", new { id = item.PATIENTID, UserId = item.USERID })">Book Now  </a> |
+
+                    @Html.ActionLink("Edit", "Edit", new { id = item.PATIENTID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.PATIENTID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.PATIENTID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PATIENTNAME)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AGE)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.WEIGHT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GENDER)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ADDRESS)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ALTERNATEMOBILENUMBER)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EMAIL)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.USERID)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PATIENTNAME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AGE)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WEIGHT)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GENDER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ADDRESS)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ALTERNATEMOBILENUMBER)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.USERID)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.PATIENTID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.PATIENTID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.PATIENTID">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>*@
